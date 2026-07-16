@@ -31,8 +31,11 @@
 
 **Flag:** `EmberForgeX_CL`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| take 10 
 ```
+<img width="782" height="205" alt="image" src="https://github.com/user-attachments/assets/1be3f43b-be50-48e4-96ca-e25a45218f7e" />
 
 ---
 
@@ -42,8 +45,13 @@
 
 **Flag:** `C:\GameDev`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("zip", "compress", "tar", "7z", "rar", "Compress-Archive", "ZipFile")
+| project TimeGenerated,Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1196" height="82" alt="image" src="https://github.com/user-attachments/assets/84686c7d-5dfd-4ab0-bc12-7403cbe996c5" />
 
 ---
 
@@ -53,8 +61,13 @@
 
 **Flag:** `mega`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("zip", "compress", "tar", "7z", "rar", "Compress-Archive", "ZipFile")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1246" height="115" alt="image" src="https://github.com/user-attachments/assets/0c51be52-a35a-4fa8-90e2-a32ab5345968" />
 
 ---
 
@@ -64,8 +77,13 @@
 
 **Flag:** `jwilson.vhr@proton.me`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("rclone.conf", "rclone", "mega", "user", "pass")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="977" height="75" alt="image" src="https://github.com/user-attachments/assets/44e1e94f-cc5c-4628-93b1-17bb31b0fd7d" />
 
 ---
 
@@ -75,8 +93,13 @@
 
 **Flag:** `ntds.dit`
 ```
-
-````
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("vssadmin", "shadow", "ntds", "vshadow", "wmic shadowcopy", "diskshadow")
+| project TimeGenerated, CommandLine_s, TargetFilename_s
+| order by TimeGenerated asc
+```
+<img width="1397" height="125" alt="image" src="https://github.com/user-attachments/assets/ca3f8062-b399-4651-81aa-d8bbdec3252c" />
 
 ---
 
@@ -86,8 +109,13 @@
 
 **Flag:** `rclone.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("onedrive", "dropbox", "gdrive", "rclone", "mega", "sync", "upload")
+| project TimeGenerated, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="896" height="76" alt="image" src="https://github.com/user-attachments/assets/a5993d95-4608-430d-ae67-d3a0c0b0756e" />
 
 ---
 
@@ -97,8 +125,14 @@
 
 **Flag:** `66.203.125.15`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "3"
+| where CommandLine_s has_any ("rclone", "mega") or Image_s has "rclone"
+| project TimeGenerated, Image_s, DestinationIp_s, DestinationPort_s, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="806" height="70" alt="image" src="https://github.com/user-attachments/assets/4f552eac-3039-4e0e-9e3e-e978f6e72077" />
 
 ---
 
@@ -108,8 +142,13 @@
 
 **Flag:** `Summer2024!`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has "rclone"
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1327" height="115" alt="image" src="https://github.com/user-attachments/assets/a50f3292-2229-4674-898d-76652ac2dcf0" />
 
 ---
 
@@ -119,8 +158,13 @@
 
 **Flag:** `Compress-Archive`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("zip", "compress", "tar", "7z", "rar", "Compress-Archive", "ZipFile")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1201" height="85" alt="image" src="https://github.com/user-attachments/assets/90dd932a-20b5-4599-ae7b-13cdcec733a5" />
 
 ---
 
@@ -130,8 +174,13 @@
 
 **Flag:** `sync.cloud-endpoint.net`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("http", "https", "wget", "curl", "Invoke-WebRequest", "iwr", "DownloadFile", "certutil")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1140" height="80" alt="image" src="https://github.com/user-attachments/assets/073b88cf-e827-4806-bb74-62d727524342" />
 
 ---
 
@@ -141,8 +190,13 @@
 
 **Flag:** `review.dll`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("rundll32", "regsvr32", "mshta", "wscript", "cscript", "msiexec", "explorer")
+| project TimeGenerated, Computer, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="987" height="72" alt="image" src="https://github.com/user-attachments/assets/383308c5-17ad-4af9-9367-36f3678b7964" />
 
 ---
 
@@ -152,8 +206,13 @@
 
 **Flag:** `D:`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("rundll32", "regsvr32", "mshta", "wscript", "cscript", "msiexec", "explorer")
+| project TimeGenerated, Computer, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="987" height="72" alt="image" src="https://github.com/user-attachments/assets/383308c5-17ad-4af9-9367-36f3678b7964" />
 
 ---
 
@@ -163,8 +222,13 @@
 
 **Flag:** `lmartin`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("rundll32", "regsvr32", "mshta", "wscript", "cscript", "msiexec", "explorer")
+| project TimeGenerated, Computer, User_s, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1216" height="80" alt="image" src="https://github.com/user-attachments/assets/0b6f4532-4041-4c02-bd86-2ba30f984f22" />
 
 ---
 
@@ -174,8 +238,13 @@
 
 **Flag:** `Explorer.EXE > rundll32.exe > review.dll`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("rundll32", "regsvr32", "mshta", "wscript", "cscript", "msiexec", "explorer")
+| project TimeGenerated, Computer, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="987" height="72" alt="image" src="https://github.com/user-attachments/assets/383308c5-17ad-4af9-9367-36f3678b7964" />
 
 ---
 
@@ -185,8 +254,13 @@
 
 **Flag:** `7zG.exe > C:\Users\lmartin.EMBERFORGE\Downloads\EmberForge_Review\`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("zip", "compress", "tar", "7z", "rar", "Compress-Archive", "ZipFile")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated desc
 ```
+<img width="1230" height="82" alt="image" src="https://github.com/user-attachments/assets/ca17da2e-b1be-4b57-ae89-037fc11ffcaa" />
 
 ---
 
@@ -196,8 +270,14 @@
 
 **Flag:** `C:\Users\Public\update.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("C:\\Windows\\Temp", "C:\\Users\\Public", "C:\\ProgramData")
+| where CommandLine_s has ".exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s, Image_s
+| order by TimeGenerated asc
 ```
+<img width="1217" height="80" alt="image" src="https://github.com/user-attachments/assets/85f36592-97c7-479f-bddb-5e47391b2e81" />
 
 ---
 
@@ -207,8 +287,14 @@
 
 **Flag:** `cdn.cloud-endpoint.net`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "22"
+| where QueryName_s !has "microsoft" and QueryName_s !has "windows" and QueryName_s !has "google"
+| project TimeGenerated, Computer, QueryName_s, Image_s
+| order by TimeGenerated asc
 ```
+<img width="837" height="77" alt="image" src="https://github.com/user-attachments/assets/11bfddb2-3ece-4770-a5e3-3fc94aa87a1c" />
 
 ---
 
@@ -218,8 +304,15 @@
 
 **Flag:** `104.21.30.237`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "22"
+| where QueryName_s has "cloud-endpoint"
+| extend ResolvedIP = extract(@"type:\s*5\s*([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", 1, Raw_s)
+| project TimeGenerated, QueryName_s, ResolvedIP, Raw_s
+| order by TimeGenerated asc
 ```
+<img width="1161" height="267" alt="image" src="https://github.com/user-attachments/assets/0fff6c18-0036-4d6d-be58-8cbc378075ce" />
 
 ---
 
@@ -229,8 +322,15 @@
 
 **Flag:** `rundll32.exe > notepad.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "8"
+| extend SourceImage = extract(@"<Data Name='SourceImage'>(.*?)</Data>", 1, Raw_s)
+| extend TargetImage = extract(@"<Data Name='TargetImage'>(.*?)</Data>", 1, Raw_s)
+| project TimeGenerated, SourceImage, TargetImage
+| order by TimeGenerated asc
 ```
+<img width="897" height="72" alt="image" src="https://github.com/user-attachments/assets/35b6a138-d337-4c2b-9d72-b28deab6ab1d" />
 
 ---
 
@@ -240,8 +340,14 @@
 
 **Flag:** `fodhelper.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where Image_s has "fodhelper"
+   or CommandLine_s has "fodhelper"
+| project TimeGenerated, Image_s, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="867" height="97" alt="image" src="https://github.com/user-attachments/assets/3650b3e0-7756-46df-ae47-ccff1e863742" />
 
 ---
 
@@ -251,8 +357,14 @@
 
 **Flag:** `DelegateExecute`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "13"
+| where TargetObject_s has "ms-settings"
+| project TimeGenerated, TargetObject_s, Image_s
+| order by TimeGenerated asc
 ```
+<img width="1275" height="82" alt="image" src="https://github.com/user-attachments/assets/ac7127fd-e48a-4e52-ac1c-b6a0f86b8c35" />
 
 ---
 
@@ -262,8 +374,16 @@
 
 **Flag:** `update.exe > spoolsv.exe (NT AUTHORITY\SYSTEM)`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "8"
+| extend SourceImage = extract(@"<Data Name='SourceImage'>(.*?)</Data>", 1, Raw_s)
+| extend TargetImage = extract(@"<Data Name='TargetImage'>(.*?)</Data>", 1, Raw_s)
+| extend TargetUser = extract(@"<Data Name='TargetUser'>(.*?)</Data>", 1, Raw_s)
+| project TimeGenerated, SourceImage, TargetImage, TargetUser
+| order by TimeGenerated asc
 ```
+<img width="802" height="70" alt="image" src="https://github.com/user-attachments/assets/63470a55-1162-4f14-83f3-b4dd47f7d97c" />
 
 ---
 
