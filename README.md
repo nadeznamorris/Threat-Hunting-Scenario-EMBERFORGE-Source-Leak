@@ -2,13 +2,13 @@
 
 ## RDP Compromise Incident
 
-**Report ID:** INC-2026-3112
+**Report ID:** INC-2026-0404
 
 **Analyst:** Nadezna Morris
 
-**Date:** 31-January-2026
+**Date:** 04-April-2026
 
-**Incident Date:** 13-December-2025
+**Incident Date:** 10-Febuary-2026
 
 ---
 
@@ -777,3 +777,9 @@ EmberForgeX_CL
 
 
 ---
+
+**Status:** Complete
+
+**Next Review:** 11-April-2026
+
+**Distributed by:** Cyber Range
