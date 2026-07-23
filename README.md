@@ -14,14 +14,25 @@
 
 ## Executive Summary
 
+This investigation traces a full intrusion lifecycle at EmberForgeX, beginning with a phishing-style social engineering lure disguised as a game review archive opened by user **lmartin**. Execution of a malicious DLL (`review.dll`) via `rundll32.exe` established an initial foothold, which the attacker escalated through a **UAC bypass (fodhelper.exe / DelegateExecute**), process injection into `notepad.exe` and `spoolsv.exe` for stealth and SYSTEM-level persistence, and credential theft via a syscall-evasive **LSASS memory dump**. The attacker then conducted domain reconnaissance, moved laterally to an internal server and ultimately the **Domain Controller** using SMB admin shares and remote service execution, extracted the **NTDS.dit** Active Directory database via volume shadow copy, created a rogue **Domain Admin** backdoor account (`svc_backup`), and installed **AnyDesk** for persistent remote access. Proprietary game development data from `C:\GameDev` was compressed using PowerShell's `Compress-Archive` and exfiltrated to a **MEGA** cloud storage account using `rclone.exe`, authenticated with credentials — including a plaintext password — exposed directly on the command line. The attacker concluded the operation by clearing the Security and System event logs on the Domain Controller via `wevtutil` in an attempt to destroy forensic evidence. This was a full-scope compromise resulting in confirmed theft of intellectual property and complete compromise of the Active Directory domain.
+
 ----
 
 ## 1. Findings
 
 ### **Key Indicators of Compromise (IOCs):**
 
-| Type           | Indicator                                                                                                    |
-| -------------- | -------------------------------------------------------------------------------------------------------------|
+| Type             | Indicator                     |
+| ---------------- | ------------------------------|
+| File / Payload   | review.dll                    |
+| File / Tool      | C:\Users\Public\update.exe    |
+| Domain (C2)      | cdn.cloud-endpoint.net        |
+| Domain (Staging) | sync.cloud-endpoint.net       |
+| IP Address       | 104.21.30.237, 66.203.125.15  |
+| Email            | jwilson.vhr@proton.me         |
+| Credential       | Summer2024!                   |
+| Account          | svc_backup                    |
+| File             | C:\Windows\System32\lsass.dmp |
 
 ---
 
