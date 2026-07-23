@@ -119,7 +119,7 @@ EmberForgeX_CL
 
 ---
 
-**FLAG 6: Exfil Destination IP***
+***FLAG 6: Exfil Destination IP***
 
 **Objective:** The exfiltration tool made outbound network connections during the upload. Correlate the tool's process with its network activity (EventCode 3). What IP address received the stolen data?
 
