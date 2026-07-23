@@ -786,11 +786,48 @@ EmberForgeX_CL
 
 ---
 
+## 2. Investigation Summary
+
 
 ---
 
-**Status:** Complete
+## 3. MITRE ATT&CK Mapping
+
+| Tactic               | Technique                                                                                  | Evidence                                    |
+| -------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------- |
+| Initial Access                         | T1566 / T1204.002 - Phishing / Malicious File                            | `review.dll` opened from downloaded archive |
+| Defense Evasion                        | T1553.005 - Mark-of-the-Web Bypass via Mounted Image                     | Payload staged/run from `D:` (mounted ISO/IMG/VHD) |
+| Execution                              | T1218.011 - Signed Binary Proxy Execution — Rundll32                     | `rundll32.exe` loading `review.dll`         |
+| Defense Evasion / Privilege Escalation | T1055 - Process Injection                                                | `rundll32.exe` → `notepad.exe`; `update.exe` → `spoolsv.exe` |
+| Privilege Escalation / Defense Evasion | T1548.002 - Bypass User Account Control (fodhelper)                      | Registry DelegateExecute key, fodhelper.exe |
+| Credential Access                      | T1003.001 - OS Credential Dumping — LSASS Memory                         | Direct-syscall LSASS dump to `lsass.dmp`    |
+| Credential Access                      | T1003.003 - OS Credential Dumping — NTDS.dit                             | `vssadmin.exe` `shadow copy` → `ntds.dit`   |
+| Discovery                              | T1087.002 / T1069.002 / T1482 - Domain Account / Group / Trust Discovery | `net user /domain`, `net group "Domain Admins"`, `nltest /dclist` |
+| Lateral Movement                       | T1021.002 - Remote Services / SMB Admin Shares                           | `copy` to `C$`, `net share` |
+| Lateral Movement                       | T1569.002 - Remote Service Creation (PsExec-style)                       | Temp service `MzLblBFm` (EventID 7045) |
+| Command and Control                    | T1105 - Ingress Tool Transfer                                            | `certutil.exe` download from staging domain |
+| Command and Control                    | T1071.004 / T1568 - DNS-based C2 / Application Layer Protocol            | Beacon to `cdn.cloud-endpoint.net` |
+| Persistence                            | T1136.002 - Create Account — Local/Domain                                | `svc_backup` added to `Domain Admins` |
+| Persistence                            | T1053.005 - Scheduled Task                                               | `WindowsUpdate task` |
+| Persistence                            | T1219 - Remote Access Software                                           | AnyDesk silent install |
+| Collection                             | T1560.001 - Archive Collected Data                                       | `Compress-Archive` on `C:\GameDev` |
+| Exfiltration                           | T1567.002 - Exfiltration to Cloud Storage                                | `rclone.exe` → MEGA |
+| Defense Evasion                        | T1070.001 - Indicator Removal — Clear Windows Event Logs                 | `wevtutil` clearing Security/System logs |
+
+---
+
+## 4. Recommendations
+
+### Immediate Action
+
+### Short-term Remediation
+
+### Long-term Remediation
+
+---
+
+**Report Status:** Complete
 
 **Next Review:** 11-April-2026
 
-**Distributed by:** Cyber Range
+**Distribution:** Cyber Range
